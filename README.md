@@ -60,7 +60,7 @@ python benchmark.py
 Submit the job via:
 
 ```bash
-sbatch hpc_job.sh
+sbatch run_benchmark.sh
 ```
 
 ## Git & Collaboration Notes
