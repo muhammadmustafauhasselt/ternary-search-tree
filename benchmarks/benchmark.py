@@ -1,7 +1,7 @@
 import time
 import random
 import string
-from tst import TernarySearchTree  # adjust if your class file is differently named
+from src.ternary_search_tree import TernarySearchTree  # adjust if your class file is differently named
 
 def generate_words(n, length=6):
     return [''.join(random.choices(string.ascii_lowercase, k=length)) for _ in range(n)]
