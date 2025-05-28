@@ -1,13 +1,19 @@
 # src/b_tree.py
 
+"""B-Tree implementation module."""
+
 class BTreeNode:
+    """Node of a B-Tree."""
+
     def __init__(self, t, leaf=False):
+        """Initialize a BTreeNode."""
         self.t = t  # Minimum degree (defines the range for number of keys)
         self.leaf = leaf
         self.keys = []
         self.children = []
 
     def insert_non_full(self, key):
+        """Insert a key into a non-full node."""
         i = len(self.keys) - 1
         if self.leaf:
             self.keys.append(None)
@@ -26,6 +32,7 @@ class BTreeNode:
             self.children[i].insert_non_full(key)
 
     def split_child(self, i):
+        """Split the child of this node at index i."""
         t = self.t
         y = self.children[i]
         z = BTreeNode(t, y.leaf)
@@ -38,6 +45,7 @@ class BTreeNode:
         self.keys.insert(i, y.keys.pop())
 
     def search(self, key):
+        """Search for a key in the subtree rooted at this node."""
         i = 0
         while i < len(self.keys) and key > self.keys[i]:
             i += 1
@@ -48,11 +56,15 @@ class BTreeNode:
         return self.children[i].search(key)
 
 class BTree:
+    """B-Tree data structure."""
+
     def __init__(self, t=10):
+        """Initialize a B-Tree."""
         self.root = BTreeNode(t, True)
         self.t = t
 
     def insert(self, key):
+        """Insert a key into the B-Tree."""
         r = self.root
         if len(r.keys) == 2 * self.t - 1:
             s = BTreeNode(self.t, False)
@@ -64,4 +76,5 @@ class BTree:
             r.insert_non_full(key)
 
     def search(self, key):
+        """Search for a key in the B-Tree."""
         return self.root.search(key)

@@ -1,13 +1,21 @@
+"""
+Benchmark.py
+"""
+
 import time
 from src.ternary_search_tree import TernarySearchTree
 from src.b_tree import BTree
 
+# pylint: disable=redefined-outer-name
+
 def load_words(filename, limit=None):
-    with open(filename) as f:
+    """Load words from a file, optionally limiting the count."""
+    with open(filename, encoding="utf-8") as f:
         words = [w.strip() for w in f if w.strip()]
     return words if limit is None else words[:limit]
 
 def benchmark(tree, words, structure_name="TST"):
+    """Benchmark insertion and search operations for the given tree."""
     print(f"\nBenchmarking {structure_name} with {len(words)} words")
     start_insert = time.time()
     for word in words:
