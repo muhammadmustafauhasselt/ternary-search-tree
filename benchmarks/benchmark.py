@@ -1,27 +1,30 @@
 import time
-import random
-import string
-from src.ternary_search_tree import TernarySearchTree  # adjust if your class file is differently named
+from src.ternary_search_tree import TernarySearchTree
+from src.b_tree import BTree
 
-def generate_words(n, length=6):
-    return [''.join(random.choices(string.ascii_lowercase, k=length)) for _ in range(n)]
+def load_words(filename, limit=None):
+    with open(filename) as f:
+        words = [w.strip() for w in f if w.strip()]
+    return words if limit is None else words[:limit]
 
-def benchmark(tree, words):
-    print(f"Benchmarking {len(words)} words")
+def benchmark(tree, words, structure_name="TST"):
+    print(f"\nBenchmarking {structure_name} with {len(words)} words")
     start_insert = time.time()
     for word in words:
         tree.insert(word)
     insert_time = time.time() - start_insert
 
     start_search = time.time()
-    for word in words:
-        tree.search(word)
+    found = sum(tree.search(word) for word in words)
     search_time = time.time() - start_search
 
     print(f"Insert Time: {insert_time:.4f} seconds")
     print(f"Search Time: {search_time:.4f} seconds")
+    print(f"Found {found}/{len(words)} words.")
 
 if __name__ == "__main__":
-    words = generate_words(100000)  # test with 100,000 random words
-    tree = TernarySearchTree()
-    benchmark(tree, words)
+    words = load_words("data/corncob_lowercase.txt")
+    tst = TernarySearchTree()
+    benchmark(tst, words, "TST")
+    btree = BTree(t=10)
+    benchmark(btree, words, "B-Tree")

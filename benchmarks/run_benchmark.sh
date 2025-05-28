@@ -6,11 +6,8 @@
 #SBATCH --account=lp_h_ds_students
 #SBATCH --cluster=genius
 
-# Move to your project root
 cd $HOME/ternary-search-tree
-
-# Make sure Python sees your src/ package
 export PYTHONPATH="$PWD"
 
-# Run the benchmark with the system Python3 interpreter
+# Run the benchmark with both TST and B-Tree
 /usr/bin/python3 "$PWD/benchmarks/benchmark.py"
