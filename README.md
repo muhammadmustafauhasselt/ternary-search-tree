@@ -41,6 +41,17 @@ These results were measured using a large input file containing English words. T
 
 - **Space Complexity:** O(n) where *n* is the total number of nodes (each character node uses space).
 
+
+## TST vs. B-Tree Benchmark Results
+
+Benchmarking performed on the HPC cluster using the `corncob_lowercase.txt` dataset (~58,110 English words).
+
+| Structure | Insert Time (s) | Search Time (s) | Words Found |
+|-----------|-----------------|-----------------|-------------|
+| TST       | 0.8927          | 0.5973          | 58110/58110 |
+| B-Tree    | 0.1436          | 0.2472          | 39547/58110 |
+
+
 ## Usage
 
 ### Run Tests
